@@ -48,4 +48,9 @@ public class PetsController {
         repository.save(pets);
         return pets;
     }
+
+    @DeleteMapping("/{id}")
+    public void deletePet(@PathVariable ObjectId id) {
+        repository.delete(repository.findBy_id(id));
+    }
 }
