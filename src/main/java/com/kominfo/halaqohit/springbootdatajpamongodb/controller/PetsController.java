@@ -1,9 +1,13 @@
 package com.kominfo.halaqohit.springbootdatajpamongodb.controller;
 
+import com.kominfo.halaqohit.springbootdatajpamongodb.entity.Pets;
 import com.kominfo.halaqohit.springbootdatajpamongodb.repository.PetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,4 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PetsController {
     @Autowired
     private PetsRepository repository;
+
+    @GetMapping
+    public List<Pets> getAllPets() {
+        return repository.findAll();
+    }
 }
