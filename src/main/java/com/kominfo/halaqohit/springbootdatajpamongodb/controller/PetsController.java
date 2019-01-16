@@ -41,4 +41,11 @@ public class PetsController {
         pets.set_id(id);
         repository.save(pets);
     }
+
+    @PostMapping
+    public Pets createPet(@Valid @RequestBody Pets pets) {
+        pets.set_id(ObjectId.get());
+        repository.save(pets);
+        return pets;
+    }
 }
