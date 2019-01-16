@@ -4,11 +4,9 @@ import com.kominfo.halaqohit.springbootdatajpamongodb.entity.Pets;
 import com.kominfo.halaqohit.springbootdatajpamongodb.repository.PetsRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -35,5 +33,12 @@ public class PetsController {
     @GetMapping("/{id}")
     public Pets getPetById(@PathVariable("id") ObjectId id) {
         return repository.findBy_id(id);
+    }
+
+    @PutMapping("/{id}")
+    public void modifyPetById(@PathVariable("id") ObjectId id, @Valid
+    @RequestBody Pets pets) {
+        pets.set_id(id);
+        repository.save(pets);
     }
 }
