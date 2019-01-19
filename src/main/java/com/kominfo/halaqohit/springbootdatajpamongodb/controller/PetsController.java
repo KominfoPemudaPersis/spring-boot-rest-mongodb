@@ -2,12 +2,14 @@ package com.kominfo.halaqohit.springbootdatajpamongodb.controller;
 
 import com.kominfo.halaqohit.springbootdatajpamongodb.entity.Pets;
 import com.kominfo.halaqohit.springbootdatajpamongodb.repository.PetsRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,26 +33,48 @@ public class PetsController {
     }
 
     @GetMapping("/{id}")
-    public Pets getPetById(@PathVariable("id") ObjectId id) {
-        return repository.findBy_id(id);
+    public ResponseEntity<Pets> getPetById(@PathVariable("id") String id) {
+        Optional<Pets> petData = repository.findById(id);
+        if (petData.isPresent()) {
+            return new ResponseEntity<>(petData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PutMapping("/{id}")
-    public void modifyPetById(@PathVariable("id") ObjectId id, @Valid
+    public void modifyPetById(@PathVariable("id") String id, @Valid
     @RequestBody Pets pets) {
-        pets.set_id(id);
+        pets.setId(id);
         repository.save(pets);
     }
 
     @PostMapping
     public Pets createPet(@Valid @RequestBody Pets pets) {
-        pets.set_id(ObjectId.get());
         repository.save(pets);
         return pets;
     }
 
     @DeleteMapping("/{id}")
-    public void deletePet(@PathVariable ObjectId id) {
-        repository.delete(repository.findBy_id(id));
+    public ResponseEntity<String> deletePet(@PathVariable String id) {
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Fail to delete!", HttpStatus.EXPECTATION_FAILED);
+        }
+
+        return new ResponseEntity<>("Pet has been deleted!", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/all")
+    public ResponseEntity<String> deleteAllPets() {
+        try {
+            repository.deleteAll();
+        } catch (Exception e) {
+            return new ResponseEntity<>("Fail to delete!", HttpStatus.EXPECTATION_FAILED);
+        }
+
+        return new ResponseEntity<>("Pets has been deleted!", HttpStatus.OK);
     }
 }
