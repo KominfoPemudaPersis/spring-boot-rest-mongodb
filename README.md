@@ -471,3 +471,8 @@ Returns:
   }
 ]
 ```
+
+Future Articles
+
+Now you have created a REST API using Java Spring Boot and MongoDB! In future articles, I will explain how to add additional features to your API,
+such as authentication! I will list the articles here as they become available.
