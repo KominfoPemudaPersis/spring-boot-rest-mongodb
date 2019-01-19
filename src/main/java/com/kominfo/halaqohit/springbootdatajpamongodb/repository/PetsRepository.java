@@ -1,8 +1,9 @@
 package com.kominfo.halaqohit.springbootdatajpamongodb.repository;
 
 import com.kominfo.halaqohit.springbootdatajpamongodb.entity.Pets;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,5 +16,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * To change this template use File | Settings | File Templates.
  */
 public interface PetsRepository extends MongoRepository<Pets, String> {
-    Pets findBy_id(ObjectId _id);
+    Optional<Pets> findById(String id);
 }
