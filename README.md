@@ -396,4 +396,24 @@ public class PetsController {
 }
 ```
 
+#### Testing Your API
 
+Now that the controller has all of our endpoints, we can begin testing our API! From the command line, in the project root,
+run the `mvn clean spring-boot:run` command to compile the code and start the Spring server with the default port 8080.
+
+Once the server starts, you are free to test your API however you choose.
+
+POST 'http://localhost:8080/pets'
+
+With body : `{“name” : “Liam”, “species” : “cat”, “breed” : “tabby”}`
+and header : `Content-Type: application/json`
+
+Returns:
+```
+{
+  “_id”: “5aecef5b6d55754834124df3”,
+  “name”: “Liam”,
+  “species”: “cat”,
+  “breed”: “tabby”
+}
+```
