@@ -159,3 +159,28 @@ public class Pets {
 }
 ```
 
+The `@Id` annotation tells spring that the `id` field will be used as the primary identifier.
+The rest of the class contains the basic constructors, getters, and setters for the Pets object.
+
+#### Adding Repository to Spring Boot Project
+
+Now that we have a model that identifies the data structure stored in the database to Spring Boot,
+we can create the connector between the model and MongoDB. This is done through a Repository interface.
+We can create this first by making a new folder called “repositories” in `src/main/java/[package name]/`.
+
+In the new “repositories” folder, we can create a file called `PetsRepository.java`. The name of this repository is extremely
+important because it tells MongoDB the collection that it will be querying (in this case, the pets collection).
+This interface will extend the MongoRepository class, which already contains generic methods like `save` (for creating/updating documents)
+and `delete` (for removing documents), but we will need to specify additional methods ourselves.
+
+Luckily, we do not need to manually implement these queries, we can simply use Spring Boot’s repository naming conventions, and the MongoRepository will intelligently construct the queries at runtime. This means that our interface will be extremely simple, as follows:
+```
+import com.kominfo.halaqohit.springbootdatajpamongodb.entity.Pets;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
+
+public interface PetsRepository extends MongoRepository<Pets, String> {
+    Optional<Pets> findById(String id);
+}
+```
