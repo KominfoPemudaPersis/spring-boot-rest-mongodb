@@ -426,3 +426,15 @@ Returns:
 ```
 empty response
 ```
+
+**GET ‘http://localhost:8080/pets/5aecef5b6d55754834124df3’**
+
+Returns:
+```
+{
+  “_id”: “5aecef5b6d55754834124df3”,
+  “name”: “Liam”,
+  “species”: “cat”,
+  “breed”: “siamese”
+}
+```
