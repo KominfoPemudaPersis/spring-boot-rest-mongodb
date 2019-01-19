@@ -438,3 +438,10 @@ Returns:
   “breed”: “siamese”
 }
 ```
+
+**DELETE ‘http://localhost:8080/pets/5aecef5b6d55754834124df3’**
+
+Returns:
+```
+empty response
+```
