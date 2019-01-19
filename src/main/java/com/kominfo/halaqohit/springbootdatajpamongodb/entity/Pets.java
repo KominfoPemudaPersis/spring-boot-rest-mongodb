@@ -1,8 +1,7 @@
 package com.kominfo.halaqohit.springbootdatajpamongodb.entity;
 
-import org.bson.types.ObjectId;
-
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,9 +13,10 @@ import javax.persistence.Id;
  * Time: 05:47
  * To change this template use File | Settings | File Templates.
  */
+@Document
 public class Pets {
     @Id
-    public ObjectId _id;
+    public String id;
 
     public String name;
     public String species;
@@ -26,20 +26,19 @@ public class Pets {
     public Pets() {
     }
 
-    public Pets(ObjectId _id, String name, String species, String breed) {
-        this._id = _id;
+    public Pets(String id, String name, String species, String breed) {
+        this.id = id;
         this.name = name;
         this.species = species;
         this.breed = breed;
     }
 
-    // ObjectId needs to be converted to string
-    public String get_id() {
-        return _id.toHexString();
+    public String getId() {
+        return id;
     }
 
-    public void set_id(ObjectId _id) {
-        this._id = _id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
