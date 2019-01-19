@@ -75,6 +75,6 @@ public class PetsController {
             return new ResponseEntity<>("Fail to delete!", HttpStatus.EXPECTATION_FAILED);
         }
 
-        return new ResponseEntity<>("Pets has been deleted!", HttpStatus.OK);
+        return new ResponseEntity<>("All Pets has been deleted!", HttpStatus.OK);
     }
 }
