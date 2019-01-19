@@ -403,7 +403,7 @@ run the `mvn clean spring-boot:run` command to compile the code and start the Sp
 
 Once the server starts, you are free to test your API however you choose.
 
-POST 'http://localhost:8080/pets'
+**POST 'http://localhost:8080/pets'**
 
 With body : `{“name” : “Liam”, “species” : “cat”, “breed” : “tabby”}`
 and header : `Content-Type: application/json`
@@ -416,4 +416,13 @@ Returns:
   “species”: “cat”,
   “breed”: “tabby”
 }
+```
+**PUT ‘http://localhost:8080/pets/5aecef5b6d55754834124df3**
+
+With body : `{“name” : “Liam”, “species” : “cat”, “breed” : “siamese”}`
+and header : `Content-Type : application/json`
+
+Returns:
+```
+empty response
 ```
