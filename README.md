@@ -417,6 +417,9 @@ Returns:
   “breed”: “tabby”
 }
 ```
+
+![Add New Data](img/add.png "Add New Data")
+
 **PUT ‘http://localhost:8080/pets/5aecef5b6d55754834124df3**
 
 With body : `{“name” : “Liam”, “species” : “cat”, “breed” : “siamese”}`
@@ -438,6 +441,7 @@ Returns:
   “breed”: “siamese”
 }
 ```
+![Get Data By Id](img/getById.png "Get Data By Id")
 
 **DELETE ‘http://localhost:8080/pets/5aecef5b6d55754834124df3’**
 
@@ -445,6 +449,8 @@ Returns:
 ```
 empty response
 ```
+
+![Delete Data By Id](img/deleteById.png "Delete Data By Id")
 
 **GET ‘http://localhost:8080/pets’**
 
@@ -471,6 +477,7 @@ Returns:
   }
 ]
 ```
+![Get All Data](img/list.png "List All Data")
 
 Future Articles
 
