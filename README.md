@@ -445,3 +445,29 @@ Returns:
 ```
 empty response
 ```
+
+**GET ‘http://localhost:8080/pets’**
+
+Returns:
+```
+[
+  {
+    “_id”: “5aeccb0a18365ba07414356c”,
+    “name”: “Spot”,
+    “species”: “dog”,
+    “breed”: “pitbull”
+  },
+  {
+    “_id”: “5aeccb0a18365ba07414356d”,
+    “name”: “Daisy”,
+    “species”: “cat”,
+    “breed”: “calico”
+  },
+  {
+    “_id”: “5aeccb0a18365ba07414356e”,
+    “name”: “Bella”,
+    “species”: “dog”,
+    “breed”: “australian shepard”
+  }
+]
+```
