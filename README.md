@@ -184,3 +184,103 @@ public interface PetsRepository extends MongoRepository<Pets, String> {
     Optional<Pets> findById(String id);
 }
 ```
+
+#### Adding the MongoDB Connection Info
+
+To tell Spring the connection information for our MongoDB, we will need to add conection details to the `application.properties` file,
+located in the `src/main/resources` folder. Add the following lines to the file, replacing the information in brackets with the information specific to your MongoDB instance:
+```
+#Local MongoDB config
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=halaqohIT
+```
+This is all the information that Spring will need to connect to the database.
+
+#### Creating REST Controller
+
+Spring should now be able to connect to MongoDB, so now we can establish the endpoints that we can contact to interact with the database.
+This will be done in a Spring Rest Controller, which uses Request Mappings to map requests with functions.
+We can create a Rest Controller by adding a file called `PetsController.java` to the `src/main/java/[package name]/` folder.
+The basic file structure will look as follows:
+```
+package com.kominfo.halaqohit.springbootdatajpamongodb.controller;
+
+import com.kominfo.halaqohit.springbootdatajpamongodb.entity.Pets;
+import com.kominfo.halaqohit.springbootdatajpamongodb.repository.PetsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Created by IntelliJ IDEA.
+ * Project : spring-boot-data-jpa-mongodb
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 2019-01-17
+ * Time: 05:52
+ * To change this template use File | Settings | File Templates.
+ */
+@RestController
+@RequestMapping("/pets")
+public class PetsController {
+    @Autowired
+    private PetsRepository repository;
+
+}
+```
+
+The `@RestController` annotation tells Spring that this class will requested by URL and will return data to the requester.
+The `@RequestMapping` annotation specifies the base URL that the controller will be handling, so any request to the host
+starting with ``/pets` will be directed to this controller. The `@Autowired` annotation creates an instance of
+the `PetsRepository` object that will allow us to access and modify the pets database.
+
+#### Adding the REST Endpoints
+
+All of the following enpoints will be added directly into the PetsController class.
+
+**GET**
+
+```
+@GetMapping
+public List<Pets> getAllPets() {
+    return repository.findAll();
+}
+
+@GetMapping("/{id}")
+public ResponseEntity<Pets> getPetById(@PathVariable("id") String id) {
+    Optional<Pets> petData = repository.findById(id);
+    if (petData.isPresent()) {
+        return new ResponseEntity<>(petData.get(), HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+}
+```
+
+The first mapping takes any `GET` requests to the host with a URL of `/pets/` and maps them to the getAllPets() method,
+which requests all documents from the pets collection.
+
+The second mapping takes and `GET` requests to the host with a URL of `/pets/` followed by an ObjectId and maps them to the getPetById() method,
+which searches the pets collection for the document with an `id` field equal to the ObjectId in the URL.
+
+**PUT**
+```
+@PutMapping("/{id}")
+public void modifyPetById(@PathVariable("id") String id, @Valid
+@RequestBody Pets pets) {
+    pets.setId(id);
+    repository.save(pets);
+}
+```
+This mapping expects a request body (in JSON format) with each of the fields that a Pets object contains (`name`, `species`, and `breed`).
+The id in the request URL is the `id` of the document to be modified.
+
+
